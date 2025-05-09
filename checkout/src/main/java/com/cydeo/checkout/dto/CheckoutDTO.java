@@ -9,4 +9,5 @@ public class CheckoutDTO {
     private String cardNumber;
     private BigDecimal amount;
     private String item;
+
 }

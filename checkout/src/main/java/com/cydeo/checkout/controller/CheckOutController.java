@@ -10,16 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/checkout")
-public class CheckoutController {
+public class CheckOutController {
     private final ProducerService producerService;
 
-    public CheckoutController(ProducerService producerService) {
+    public CheckOutController(ProducerService producerService) {
         this.producerService = producerService;
     }
 
     @PostMapping
     public String checkout(@RequestBody CheckoutDTO checkoutDTO) throws JsonProcessingException {
-        producerService.sendMessage(checkoutDTO);
-        return "message sent";
+       return producerService.sendMessage(checkoutDTO);
     }
+
+
+
 }
+
+

@@ -1,6 +1,7 @@
 package com.cydeo.checkout.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.common.internals.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Configuration
 public class KafkaConfig {
@@ -23,23 +25,24 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
-        // get configs on application.properties/yml
+    public ProducerFactory<String, String> producerFactory(){
         Map<String, Object> properties = kafkaProperties.buildProducerProperties();
         return new DefaultKafkaProducerFactory<>(properties);
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
+    public KafkaTemplate<String, String> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean
-    public NewTopic topic() {
+    public NewTopic topic(){
         return TopicBuilder
                 .name("order")
                 .partitions(1)
                 .replicas(1)
                 .build();
     }
+
+
 }
